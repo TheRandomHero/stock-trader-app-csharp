@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 
 namespace stockTrader
 {
@@ -8,10 +9,13 @@ namespace stockTrader
         public StockAPIService stockAPIService;
         public Trader trader;
         public Logger logger;
+        public RemoteURLReader remoteReader;
+        
         public void setUp()
         {
             logger = new Logger();
-            stockAPIService = new StockAPIService("https://financialmodelingprep.com/api/v3/stock/real-time-price/{0}");
+            remoteReader = new RemoteURLReader(new WebClient());
+            stockAPIService = new StockAPIService("https://financialmodelingprep.com/api/v3/stock/real-time-price/{0}", remoteReader);
             trader = new Trader(stockAPIService, logger);
 
         }

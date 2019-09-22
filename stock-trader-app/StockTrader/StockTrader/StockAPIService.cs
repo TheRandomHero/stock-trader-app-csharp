@@ -9,10 +9,12 @@ namespace stockTrader
     public class StockAPIService {
 
         private string apiPath;
+        private RemoteURLReader _remoteURLReader;
 
-        public StockAPIService(string path)
+        public StockAPIService(string path, RemoteURLReader remoteURLReader)
         {
             apiPath = path;
+            _remoteURLReader = remoteURLReader;
         }
 	
         /// <summary>
@@ -22,7 +24,7 @@ namespace stockTrader
         /// <returns>the stock price</returns>
         public double GetPrice(string symbol) {
             string url = String.Format(apiPath, symbol);
-            string result = RemoteURLReader.ReadFromUrl(url);
+            string result = _remoteURLReader.ReadFromUrl(url);
             var json = JObject.Parse(result);
             string price = json.GetValue("price").ToString();
             return double.Parse(price);

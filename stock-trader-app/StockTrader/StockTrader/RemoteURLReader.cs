@@ -4,8 +4,14 @@ namespace stockTrader
 {
     public class RemoteURLReader
     {
-        public static string ReadFromUrl(string endpoint) {
-            using(var client = new WebClient()) {
+        private WebClient _webClient;
+
+        public RemoteURLReader(WebClient webClient)
+        {
+            _webClient = webClient;
+        }
+        public string ReadFromUrl(string endpoint) {
+            using(var client = _webClient) {
                 return client.DownloadString(endpoint);
             }
         }
