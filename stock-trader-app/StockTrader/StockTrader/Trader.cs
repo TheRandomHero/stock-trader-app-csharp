@@ -4,10 +4,12 @@ namespace stockTrader
     {
 
         private readonly StockAPIService _stockApiService;
+        private Logger _logger;
 
-        public Trader(StockAPIService stockApiService)
+        public Trader(StockAPIService stockApiService, Logger logger)
         {
             _stockApiService = stockApiService;
+            _logger = logger;
         }
         
         /// <summary>
@@ -23,10 +25,10 @@ namespace stockTrader
             if (price <= bid) {
                 result = true;
                 _stockApiService.Buy(symbol);
-                Logger.Instance.Log("Purchased " + symbol + " stock at $" + bid + ", since its higher that the current price ($" + price + ")");
+                _logger.Log("Purchased " + symbol + " stock at $" + bid + ", since its higher that the current price ($" + price + ")");
             }
             else {
-                Logger.Instance.Log("Bid for " + symbol + " was $" + bid + " but the stock price is $" + price + ", no purchase was made.");
+                _logger.Log("Bid for " + symbol + " was $" + bid + " but the stock price is $" + price + ", no purchase was made.");
                 result = false;
             }
             return result;

@@ -6,20 +6,6 @@ namespace stockTrader
     public class Logger
     {
 
-        private static Logger _instance;
-
-        public static Logger Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new Logger();
-                }
-                return _instance;
-            }
-        }
-
         public void Log(string message) {
             var msg = DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss") + " " + message;
             Console.WriteLine(msg);

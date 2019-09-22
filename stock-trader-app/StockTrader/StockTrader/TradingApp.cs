@@ -7,10 +7,13 @@ namespace stockTrader
   {
         public StockAPIService stockAPIService;
         public Trader trader;
+        public Logger logger;
         public void setUp()
         {
+            logger = new Logger();
             stockAPIService = new StockAPIService("https://financialmodelingprep.com/api/v3/stock/real-time-price/{0}");
-            trader = new Trader(stockAPIService);
+            trader = new Trader(stockAPIService, logger);
+
         }
     public static void Main(string[] args)
     {
@@ -33,13 +36,13 @@ namespace stockTrader
 	    try {
 		    bool purchased = trader.Buy(symbol, price);
 		    if (purchased) {
-			    Logger.Instance.Log("Purchased stock!");
+			    logger.Log("Purchased stock!");
 		    }
 		    else {
-			    Logger.Instance.Log("Couldn't buy the stock at that price.");
+			    logger.Log("Couldn't buy the stock at that price.");
 		    }
 	    } catch (Exception e) {
-		    Logger.Instance.Log("There was an error while attempting to buy the stock: " + e.Message);
+		    logger.Log("There was an error while attempting to buy the stock: " + e.Message);
 	    }
         Console.ReadLine();
     }
