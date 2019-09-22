@@ -2,25 +2,12 @@ namespace stockTrader
 {
     public class Trader
     {
-        private static Trader _instance;
-
-        public static Trader Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new Trader();
-                }
-                return _instance;
-            }
-        }
 
         private readonly StockAPIService _stockApiService;
 
-        public Trader()
+        public Trader(StockAPIService stockApiService)
         {
-            _stockApiService = new StockAPIService();
+            _stockApiService = stockApiService;
         }
         
         /// <summary>

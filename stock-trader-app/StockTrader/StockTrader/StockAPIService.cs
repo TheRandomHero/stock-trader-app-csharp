@@ -8,7 +8,12 @@ namespace stockTrader
     /// </summary>
     public class StockAPIService {
 
-        private static string apiPath = "https://financialmodelingprep.com/api/v3/stock/real-time-price/{0}";
+        private string apiPath;
+
+        public StockAPIService(string path)
+        {
+            apiPath = path;
+        }
 	
         /// <summary>
         /// Get stock price from iex

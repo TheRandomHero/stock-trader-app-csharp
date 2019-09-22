@@ -5,10 +5,18 @@ namespace stockTrader
 
   internal class TradingApp
   {
+        public StockAPIService stockAPIService;
+        public Trader trader;
+        public void setUp()
+        {
+            stockAPIService = new StockAPIService("https://financialmodelingprep.com/api/v3/stock/real-time-price/{0}");
+            trader = new Trader(stockAPIService);
+        }
     public static void Main(string[] args)
     {
 	    TradingApp app = new TradingApp();
-	    app.Start();
+            app.setUp();
+            app.Start();
     }
 
     public void Start()
@@ -23,7 +31,7 @@ namespace stockTrader
 	    }
 	    
 	    try {
-		    bool purchased = Trader.Instance.Buy(symbol, price);
+		    bool purchased = trader.Buy(symbol, price);
 		    if (purchased) {
 			    Logger.Instance.Log("Purchased stock!");
 		    }
