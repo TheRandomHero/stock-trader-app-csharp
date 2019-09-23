@@ -1,15 +1,21 @@
+using stock_trader_app_DI_csharp.StockTrader;
+
 namespace stockTrader
 {
-    public class Trader
+    public class Trader : ITrader
     {
 
         private readonly StockAPIService _stockApiService;
         private Logger _logger;
 
-        public Trader(StockAPIService stockApiService, Logger logger)
+        public Trader(StockAPIService stockApiService, Logger logger) 
         {
             _stockApiService = stockApiService;
             _logger = logger;
+        }
+
+        public Trader()
+        {
         }
         
         /// <summary>

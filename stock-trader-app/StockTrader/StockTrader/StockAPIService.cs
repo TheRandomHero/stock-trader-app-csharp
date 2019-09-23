@@ -8,13 +8,15 @@ namespace stockTrader
     /// </summary>
     public class StockAPIService {
 
-        private string apiPath;
+        private string apiPath = @"https://financialmodelingprep.com/api/v3/stock/real-time-price/{0}";
         private RemoteURLReader _remoteURLReader;
 
-        public StockAPIService(string path, RemoteURLReader remoteURLReader)
+        public StockAPIService(RemoteURLReader remoteURLReader)
         {
-            apiPath = path;
             _remoteURLReader = remoteURLReader;
+        }
+        public StockAPIService()
+        {
         }
 	
         /// <summary>
@@ -22,7 +24,7 @@ namespace stockTrader
         /// </summary>
         /// <param name="symbol">symbol Stock symbol, for example "aapl"</param>
         /// <returns>the stock price</returns>
-        public double GetPrice(string symbol) {
+        public virtual double GetPrice(string symbol) {
             string url = String.Format(apiPath, symbol);
             string result = _remoteURLReader.ReadFromUrl(url);
             var json = JObject.Parse(result);
